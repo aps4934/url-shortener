@@ -1,5 +1,8 @@
 # Scalable URL Shortener
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Project-blue)](https://url-shortener-2-6f21.onrender.com)
+
+
 A high-performance, scalable URL shortener web application built with Python Flask, Redis, and modern web technologies. Designed to handle millions of requests through advanced architecture including data sharding, intelligent caching, and load balancing.
 
 ## 🚀 Features
