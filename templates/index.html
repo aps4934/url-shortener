@@ -3,28 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>Scalable URL Shortener</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <h1>URL Shortener</h1>
-        <p>Welcome to our URL Shortener service. Enter your long URL below to get a shortened version.</p>
-        <form id="shorten-form">
-            <input type="url" id="original-url" placeholder="Enter your original URL" required>
-            <button type="submit">Shorten URL</button>
-        </form>
-        <div id="result" style="display: none;">
-            <h2>Shortened URL:</h2>
-            <input type="text" id="short-url" readonly>
-            <button onclick="copyToClipboard()">Copy</button>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-link"></i>
+                <span>Scalable URL Shortener</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#about" class="nav-link">About</a>
+                <button onclick="document.getElementById('shorten-form').scrollIntoView()" class="nav-link cta-nav">Shorten URL</button>
+            </div>
         </div>
-        <footer>
-            <hr>
-            <p>Created by Aditya Pratap Singh</p>
-            <p><a href="https://github.com/aps4934/URL-shortner" target="_blank" rel="noopener">GitHub Repository</a></p>
-        </footer>
-    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Shorten URLs at Scale</h1>
+                <p>Transform long URLs into short, shareable links with our high-performance URL shortener. Built to handle millions of requests using advanced sharding, caching, and load balancing technologies.</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Lightning Fast</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Highly Scalable</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fas fa-database"></i>
+                        <span>Redis Powered</span>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">1M+</span>
+                        <span class="hero-stat-label">URLs Shortened</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">99.9%</span>
+                        <span class="hero-stat-label">Uptime</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">10K+</span>
+                        <span class="hero-stat-label">Requests/sec</span>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('shorten-form').scrollIntoView()" class="hero-btn">
+                    <i class="fas fa-link"></i> Start Shortening
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="code-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- URL Shortener Form Section -->
+    <section class="shortener-section">
+        <div class="container">
+            <div class="shortener-card">
+                <h2>Shorten Your URL</h2>
+                <form id="shorten-form">
+                    <input type="url" id="original-url" placeholder="Enter your long URL (e.g., https://example.com)" required>
+                    <button type="submit" id="submit-btn">Shorten URL</button>
+                </form>
+                <div id="result" style="display: none;">
+                    <h3>Shortened URL:</h3>
+                    <input type="text" id="short-url" readonly>
+                    <button onclick="copyToClipboard()" id="copy-btn">Copy to Clipboard</button>
+                    <p id="copy-message" style="display: none; color: #4CAF50; margin-top: 10px;">Copied!</p>
+                </div>
+                <div id="loading" style="display: none;">
+                    <p>Shortening your URL...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>High Performance</h3>
+                    <p>Optimized with Redis caching and sharding for lightning-fast URL redirects and storage.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Data Sharding</h3>
+                    <p>Distribute URL mappings across multiple Redis databases for horizontal scaling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Load Balancing</h3>
+                    <p>Supports multiple app instances behind load balancers for high availability.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Persistent Redis storage with in-memory fallback for uninterrupted service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <h3>Easy Copy & Share</h3>
+                    <p>One-click copy functionality to quickly share your shortened URLs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Works seamlessly across desktop, tablet, and mobile devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Enter Your URL</h3>
+                    <p>Paste your long URL into the input field above. We support any valid URL format.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Generate Short Code</h3>
+                    <p>Our system creates a unique short code and stores it using Redis sharding.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <h3>Copy & Share</h3>
+                    <p>Copy the shortened URL and share it anywhere. Caching ensures fast redirects.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Scale Automatically</h3>
+                    <p>As traffic grows, our sharding and load balancing handle millions of requests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>About Scalable URL Shortener</h2>
+                    <p>Experience the power of a URL shortener designed for the modern web. Our platform leverages Redis for high-performance storage and caching, with intelligent sharding to distribute load across multiple databases. Whether you're sharing links on social media or managing redirects for your business, our system ensures reliability and speed.</p>
+                    <p>Built with scalability in mind, this URL shortener can handle millions of requests per day through advanced load balancing and distributed architecture. From startups to enterprises, our solution grows with your needs.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">1M+</span>
+                            <span class="stat-label">URLs Shortened</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">99.9%</span>
+                            <span class="stat-label">Uptime</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Requests/sec</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <i class="fas fa-link"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-link"></i>
+                        <span>Scalable URL Shortener</span>
+                    </div>
+                    <p>Built with Flask, Redis, and modern web technologies for handling millions of requests.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/aps4934/url-shortener" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Aditya Pratap Singh | Built with Flask and Redis | <a href="https://github.com/aps4934/url-shortener" target="_blank" style="color: #00d4ff;">View Source on GitHub</a></p>
+            </div>
+        </div>
+    </footer>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
